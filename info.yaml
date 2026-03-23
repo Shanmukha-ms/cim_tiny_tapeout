@@ -1,0 +1,52 @@
+project:
+  title: "Binary Neural Network — Breast Cancer Classifier"
+  author: "Shanmukha Mangadahalli Siddaramu"
+  discord: ""
+  description: >
+    An 8-input Binary Neural Network (BNN) perceptron trained on the Breast Cancer
+    Wisconsin dataset. Classifies tumors as malignant (y=0) or benign (y=1) with
+    89.5% test accuracy. Uses XNOR + popcount + threshold instead of MAC units.
+    Both a combinational (instant) and sequential (1-bit/cycle) engine are exposed.
+    Total gate count ~140 GE — well under the 1000-gate TinyTapeout budget.
+  language: "Verilog"
+  clock_hz: 50000000
+  tiles: "1x1"
+  top_module: "tt_um_bnn"
+  source_files:
+    - "project.v"
+    - "tiny_bnn_comb.v"
+    - "tiny_bnn_seq.v"
+
+pinout:
+  # Dedicated inputs — binarized patient feature vector
+  # Binarize each raw measurement against the training-set median:
+  ui[0]: "x[0]: mean radius        > 13.27  (1=above median)"
+  ui[1]: "x[1]: mean perimeter     > 85.98  (1=above median)"
+  ui[2]: "x[2]: mean area          > 541.8  (1=above median)"
+  ui[3]: "x[3]: mean concave pts   > 0.033  (1=above median)"
+  ui[4]: "x[4]: worst radius       > 14.91  (1=above median)"
+  ui[5]: "x[5]: worst perimeter    > 97.59  (1=above median)"
+  ui[6]: "x[6]: worst area         > 683.4  (1=above median)"
+  ui[7]: "x[7]: worst concave pts  > 0.097  (1=above median)"
+
+  # Dedicated outputs
+  uo[0]: "y_comb: combinational BNN result  (1=benign, 0=malignant)"
+  uo[1]: "y_seq:  sequential BNN result     (latched, valid after 8 clocks)"
+  uo[2]: "valid:  sequential valid strobe   (pulses high 1 cycle)"
+  uo[3]: ""
+  uo[4]: ""
+  uo[5]: ""
+  uo[6]: ""
+  uo[7]: ""
+
+  # Bidirectional — input only
+  uio[0]: "start: rising edge triggers sequential BNN engine"
+  uio[1]: ""
+  uio[2]: ""
+  uio[3]: ""
+  uio[4]: ""
+  uio[5]: ""
+  uio[6]: ""
+  uio[7]: ""
+
+yaml_version: 6

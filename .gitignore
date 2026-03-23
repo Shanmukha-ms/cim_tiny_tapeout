@@ -1,0 +1,25 @@
+# Simulation artefacts
+test/sim_build/
+test/*.vcd
+test/*.xml
+test/results.xml
+sim
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# OpenLane / GDS outputs
+runs/
+*.gds
+*.lef
+*.def
+*.spef
+*.lib
+*.sdf
+
+# macOS
+.DS_Store
