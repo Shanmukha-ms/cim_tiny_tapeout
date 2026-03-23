@@ -2,6 +2,9 @@ name: test
 
 on: [push, workflow_dispatch]
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   test:
     runs-on: ubuntu-24.04
@@ -27,7 +30,15 @@ jobs:
           cd test
           make clean
           make
-          ! grep failure results.xml
+          if [ ! -f results.xml ]; then
+            echo "results.xml not found — simulation did not produce output"
+            exit 1
+          fi
+          if grep -q "failure" results.xml; then
+            echo "Test failures detected in results.xml"
+            exit 1
+          fi
+          echo "All tests passed"
 
       - name: Test Summary
         uses: test-summary/action@v2.4
@@ -36,10 +47,11 @@ jobs:
         if: always()
 
       - name: Upload waveform and test results
-        if: success() || failure()
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: test-results
+          if-no-files-found: warn
           path: |
             test/tb.fst
             test/results.xml

@@ -2,14 +2,17 @@
 # Usage: make        (runs all tests with iverilog)
 #        make clean  (removes build artefacts)
 
-SIM          ?= icarus
+SIM           ?= icarus
 TOPLEVEL_LANG ?= verilog
-VERILOG_SOURCES = $(PWD)/../src/project.v \
-                  $(PWD)/../src/tiny_bnn_comb.v \
-                  $(PWD)/../src/tiny_bnn_seq.v
 
-TOPLEVEL     = tb
-MODULE       = test
+# All Verilog sources — testbench first, then DUT hierarchy
+VERILOG_SOURCES += $(PWD)/tb.v
+VERILOG_SOURCES += $(PWD)/../src/project.v
+VERILOG_SOURCES += $(PWD)/../src/tiny_bnn_comb.v
+VERILOG_SOURCES += $(PWD)/../src/tiny_bnn_seq.v
 
-# Include the standard TinyTapeout cocotb makefile fragment
+TOPLEVEL = tb
+MODULE   = test
+
+# Cocotb simulation makefile
 include $(shell cocotb-config --makefiles)/Makefile.sim
