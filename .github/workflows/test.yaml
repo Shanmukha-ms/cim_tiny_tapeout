@@ -23,13 +23,16 @@ jobs:
           python-version: '3.11'
 
       - name: Install Python packages
-        run: pip install -r test/requirements.txt
+        run: |
+          pip install -r test/requirements.txt
+          echo "cocotb version: $(cocotb-config --version)"
+          echo "cocotb makefiles: $(cocotb-config --makefiles)"
 
       - name: Run tests
         run: |
           cd test
           make clean
-          make
+          make SIM=icarus
           if [ ! -f results.xml ]; then
             echo "results.xml not found — simulation did not produce output"
             exit 1

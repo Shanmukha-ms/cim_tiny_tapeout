@@ -1,12 +1,11 @@
 {
     "DESIGN_NAME": "tt_um_bnn",
-    "VERILOG_FILES": "dir::src/project.v dir::src/tiny_bnn_comb.v dir::src/tiny_bnn_seq.v",
+    "VERILOG_FILES": "dir::src/project.v",
     "CLOCK_PORT": "clk",
     "CLOCK_PERIOD": 20,
     "PL_TARGET_DENSITY_PCT": 60,
     "PL_RESIZER_HOLD_SLACK_MARGIN": 0.1,
-    "GLB_RESIZER_HOLD_SLACK_MARGIN": 0.05,
+    "GRT_RESIZER_HOLD_SLACK_MARGIN": 0.05,
     "RUN_LINTER": true,
-    "LINTER_INCLUDE_PDK_MODELS": true,
-    "SYNTH_FLAT_TOP": true
+    "LINTER_INCLUDE_PDK_MODELS": true
 }
