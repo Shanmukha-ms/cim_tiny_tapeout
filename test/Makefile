@@ -8,8 +8,7 @@ TOPLEVEL_LANG ?= verilog
 # All Verilog sources — testbench first, then DUT hierarchy
 VERILOG_SOURCES += $(PWD)/tb.v
 VERILOG_SOURCES += $(PWD)/../src/project.v
-VERILOG_SOURCES += $(PWD)/../src/tiny_bnn_comb.v
-VERILOG_SOURCES += $(PWD)/../src/tiny_bnn_seq.v
+VERILOG_SOURCES += $(PWD)/../src/hopfield_odd.v
 
 TOPLEVEL = tb
 MODULE   = test
