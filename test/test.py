@@ -43,8 +43,8 @@ TEST_VECTORS = {
     0xC0: 1,   # benign:    x[7:6]=1 above, rest low  → pop=4
     0x88: 1,   # benign:    mixed                     → pop=4
     0x06: 1,   # benign:    x = W exactly             → pop=8
-    0xF9: 0,   # malignant: only x[1] matches         → pop=1
-    0x3E: 0,   # malignant: borderline                → pop=2
+    0xF9: 0,   # malignant: ~(0xF9^0x06)=0x00          → pop=0
+    0x3E: 1,   # benign:    ~(0x3E^0x06)=0xC7          → pop=5
 }
 
 
